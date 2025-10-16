@@ -45,18 +45,36 @@ function LoginForm() {
       }
 
       console.log('✅ Login exitoso, sesión creada');
-      console.log('🔄 Redirigiendo al dashboard...');
+      console.log('🔄 Esperando a que se establezcan las cookies...');
       
       toast.success('¡Bienvenido de nuevo!');
       
       const redirect = searchParams.get('redirect') || '/dashboard';
       
-      // Esperar un poco para que se vea el toast
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Esperar más tiempo para que las cookies se establezcan
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Forzar redirección completa (recarga la página)
-      console.log('🚀 Navegando a:', redirect);
-      window.location.href = redirect;
+      // Verificar que la sesión esté realmente establecida
+      try {
+        const sessionCheck = await authClient.getSession({
+          fetchOptions: { credentials: 'include' }
+        });
+        
+        if (sessionCheck.data?.user) {
+          console.log('✅ Sesión verificada, redirigiendo...');
+          console.log('🚀 Navegando a:', redirect);
+          window.location.href = redirect;
+        } else {
+          console.log('⚠️ Sesión no verificada, reintentando...');
+          // Reintentar después de más tiempo
+          setTimeout(() => {
+            window.location.href = redirect;
+          }, 2000);
+        }
+      } catch (error) {
+        console.log('⚠️ Error verificando sesión, redirigiendo de todas formas...');
+        window.location.href = redirect;
+      }
       
     } catch (error) {
       console.error('Login error:', error);

@@ -22,13 +22,6 @@ function LoginForm() {
     rememberMe: false,
   });
 
-  useEffect(() => {
-    if (!isPending && session?.user) {
-      const redirect = searchParams.get('redirect') || '/dashboard';
-      router.push(redirect);
-    }
-  }, [session, isPending, router, searchParams]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -51,26 +44,19 @@ function LoginForm() {
         localStorage.setItem('bearer_token', data.token);
       }
 
-      console.log('Login exitoso, sesión creada');
+      console.log('✅ Login exitoso, sesión creada');
+      console.log('🔄 Redirigiendo al dashboard...');
+      
       toast.success('¡Bienvenido de nuevo!');
-      
-      // Refetch la sesión
-      await refetch();
-      
-      // Esperar un momento para asegurar que las cookies se establezcan
-      await new Promise(resolve => setTimeout(resolve, 300));
       
       const redirect = searchParams.get('redirect') || '/dashboard';
       
-      // Usar router.push en lugar de window.location para mejor experiencia
-      router.push(redirect);
+      // Esperar un poco para que se vea el toast
+      await new Promise(resolve => setTimeout(resolve, 500));
       
-      // Si después de 2 segundos no redirigió, forzar con window.location
-      setTimeout(() => {
-        if (window.location.pathname !== redirect) {
-          window.location.href = redirect;
-        }
-      }, 2000);
+      // Forzar redirección completa (recarga la página)
+      console.log('🚀 Navegando a:', redirect);
+      window.location.href = redirect;
       
     } catch (error) {
       console.error('Login error:', error);

@@ -46,13 +46,24 @@ function LoginForm() {
         return;
       }
 
+      // Guardar el token manualmente si no se guardó automáticamente
+      if (data?.token) {
+        localStorage.setItem('bearer_token', data.token);
+      }
+
       toast.success('¡Bienvenido de nuevo!');
       
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Esperar a que la sesión se actualice
+      await new Promise(resolve => setTimeout(resolve, 800));
       await refetch();
       
+      // Esperar un poco más para que el refetch complete
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
       const redirect = searchParams.get('redirect') || '/dashboard';
-      router.push(redirect);
+      
+      // Forzar la navegación con recarga completa
+      window.location.href = redirect;
       
     } catch (error) {
       console.error('Login error:', error);

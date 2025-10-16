@@ -1,0 +1,245 @@
+/* Updated: 2025-10-16T14:48:24.798Z */
+/* Updated: 2025-10-15T15:36:48.216Z */
+/* Updated: 2025-10-15T15:18:52.004Z */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 16px;
+  
+  /* Fresh Pro Design Tokens */
+  --bg: #F7F9FB;
+  --surface: #FFFFFF;
+  --text: #0F172A;
+  --muted: #475569;
+  --border: #E2E8F0;
+  --divider: #CBD5E1;
+  --accent: #16B26E;
+  --accent-hover: #0FA968;
+  --accent-dark: #0B8B58;
+  --success: #16A34A;
+  --warning: #F59E0B;
+  --error: #DC2626;
+  
+  /* Map to standard tokens */
+  --background: #F7F9FB;
+  --foreground: #0F172A;
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
+  --primary: #16B26E;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F5F9;
+  --secondary-foreground: #0F172A;
+  --muted-bg: #F1F5F9;
+  --muted-foreground: #475569;
+  --accent-color: #16B26E;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --border-color: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #16B26E;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(2,6,23,0.06);
+  --shadow-md: 0 8px 24px rgba(2,6,23,0.08);
+  
+  /* Sidebar */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #0F172A;
+  --sidebar-primary: #16B26E;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F1F5F9;
+  --sidebar-accent-foreground: #0F172A;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #16B26E;
+}
+
+.dark {
+  --bg: #0F172A;
+  --surface: #1E293B;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --border: #334155;
+  --divider: #475569;
+  
+  --background: #0F172A;
+  --foreground: #F8FAFC;
+  --card: #1E293B;
+  --card-foreground: #F8FAFC;
+  --popover: #1E293B;
+  --popover-foreground: #F8FAFC;
+  --primary: #16B26E;
+  --primary-foreground: #FFFFFF;
+  --secondary: #334155;
+  --secondary-foreground: #F8FAFC;
+  --muted-bg: #334155;
+  --muted-foreground: #94A3B8;
+  --accent-color: #16B26E;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --border-color: #334155;
+  --input: #334155;
+  --ring: #16B26E;
+  
+  --sidebar: #1E293B;
+  --sidebar-foreground: #F8FAFC;
+  --sidebar-primary: #16B26E;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #334155;
+  --sidebar-accent-foreground: #F8FAFC;
+  --sidebar-border: #334155;
+  --sidebar-ring: #16B26E;
+}
+
+@layer base {
+  * {
+    border-color: var(--border-color);
+    outline-color: var(--ring);
+    outline-width: 2px;
+    outline-offset: 2px;
+  }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  
+  /* Fresh Pro Utilities */
+  .pill-button {
+    height: 52px;
+    padding: 0 32px;
+    border-radius: 9999px;
+    background: var(--accent);
+    color: white;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  
+  .pill-button:hover {
+    background: var(--accent-hover);
+  }
+  
+  .pill-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(22, 178, 110, 0.3);
+  }
+  
+  .card-fresh {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+  }
+  
+  .card-fresh:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .section-spacing {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  
+  .container-fresh {
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  
+  @media (min-width: 1024px) {
+    .container-fresh {
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+  
+  .badge-trust {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(22, 178, 110, 0.1);
+    border: 1px solid rgba(22, 178, 110, 0.2);
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent-dark);
+  }
+  
+  .stepper-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent);
+    color: white;
+    font-weight: 700;
+  }
+  
+  .stepper-line {
+    height: 2px;
+    flex: 1;
+    background: rgba(22, 178, 110, 0.3);
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--border);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-hover);
+  }
+  
+  /* Animations */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out;
+  }
+}
+
+/* Hide Next.js error overlay portal */
+nextjs-portal {
+  display: none !important;
+}

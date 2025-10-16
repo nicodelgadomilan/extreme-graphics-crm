@@ -1,0 +1,1 @@
+ALTER TABLE `leads` ADD `preferred_contact` text;

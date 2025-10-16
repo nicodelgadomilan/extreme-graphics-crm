@@ -1,0 +1,1 @@
+ALTER TABLE `estimates` ADD `pdf_file` text;

@@ -1,0 +1,1 @@
+ALTER TABLE `leads` ADD `ticket_number` text;

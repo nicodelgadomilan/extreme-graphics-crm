@@ -7,12 +7,17 @@ import { db } from "@/db";
  
 export const auth = betterAuth({
 	database: drizzleAdapter(db, {
-		provider: "sqlite",
+		provider: "pg",
 	}),
 	emailAndPassword: {    
 		enabled: true
 	},
-	plugins: [bearer()]
+	plugins: [bearer()],
+	trustedOrigins: [
+		"http://localhost:3000",
+		"https://extreme-graphics-crm.vercel.app",
+		"https://*.vercel.app"
+	]
 });
 
 // Session validation helper

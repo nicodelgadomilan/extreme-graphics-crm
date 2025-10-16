@@ -46,24 +46,31 @@ function LoginForm() {
         return;
       }
 
-      // Guardar el token manualmente si no se guardó automáticamente
+      // Guardar el token para las API calls
       if (data?.token) {
         localStorage.setItem('bearer_token', data.token);
       }
 
+      console.log('Login exitoso, sesión creada');
       toast.success('¡Bienvenido de nuevo!');
       
-      // Esperar a que la sesión se actualice
-      await new Promise(resolve => setTimeout(resolve, 800));
+      // Refetch la sesión
       await refetch();
       
-      // Esperar un poco más para que el refetch complete
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Esperar un momento para asegurar que las cookies se establezcan
+      await new Promise(resolve => setTimeout(resolve, 300));
       
       const redirect = searchParams.get('redirect') || '/dashboard';
       
-      // Forzar la navegación con recarga completa
-      window.location.href = redirect;
+      // Usar router.push en lugar de window.location para mejor experiencia
+      router.push(redirect);
+      
+      // Si después de 2 segundos no redirigió, forzar con window.location
+      setTimeout(() => {
+        if (window.location.pathname !== redirect) {
+          window.location.href = redirect;
+        }
+      }, 2000);
       
     } catch (error) {
       console.error('Login error:', error);
